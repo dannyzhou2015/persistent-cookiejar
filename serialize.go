@@ -101,7 +101,7 @@ func (j *Jar) load() error {
 
 // ImportEntriesStr import entries from JSON serialized data
 func (j *Jar) ImportEntriesStr(data string) error {
-	return ImportEntries([]byte(data))
+	return j.ImportEntries([]byte(data))
 }
 			     
 // ImportEntries import entries from serialized data		     
