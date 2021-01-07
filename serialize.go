@@ -98,6 +98,23 @@ func (j *Jar) load() error {
 	return nil
 }
 
+
+// ImportEntriesStr import entries from JSON serialized data
+func (j *Jar) ImportEntriesStr(data string) error {
+	return ImportEntries([]byte(data)
+}
+			     
+// ImportEntries import entries from serialized data		     
+func (j *Jar) ImportEntries(data []byte) error {
+	var entries []entry
+	if err := json.Unmarshal(data, &entries); err != nil {
+		log.Printf("warning: discarding cookies in invalid format (error: %v)", err)
+		return nil
+	}
+	j.merge(entries)
+	return nil
+}
+
 // mergeFrom reads all the cookies from r and stores them in the Jar.
 func (j *Jar) mergeFrom(r io.Reader) error {
 	decoder := json.NewDecoder(r)
